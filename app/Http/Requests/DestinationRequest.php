@@ -18,9 +18,10 @@ class DestinationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'destination_name' => [
+            'name' => [
                 'required',
-                'string',function ($attribute, $value, $fail) {
+                'string',
+                function ($attribute, $value, $fail) {
                     if (! $value) {
                         $fail(__('Destination not found.'));
 
