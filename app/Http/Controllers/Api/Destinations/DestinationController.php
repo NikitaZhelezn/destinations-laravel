@@ -34,10 +34,7 @@ class DestinationController extends ApiController
      */
     public function nearDestinations(DestinationRequest $request): JsonResponse
     {
-        return $this->response([
-            'destinations' => $this->service->setDestination($request->destination)
-                ->getDestinationsInRadius($request),
-            'message' => __('Nearest destination list.'),
-        ]);
+        return $this->response($this->service->setDestination($request->destination)
+            ->getDestinationsInRadius($request));
     }
 }

@@ -88,15 +88,26 @@ class DestinationService
                 $this->destination->lat,
                 $this->destination->lon,
                 $this->destination->lat,
-            ])
+            ]);
+
+        $count = $locations->count();
+        $locations = $locations
             ->offset($request->get('offset', 0))
             ->limit($request->get('limit', 20))
             ->get();
 
         if ($locations->isEmpty()) {
-            return [];
+            return [
+                'destinations' => [],
+                'count' => 0,
+                'message' => __('Nearest destination list.'),
+            ];
         }
 
-        return DestinationResource::collection($locations)->resolve();
+        return [
+            'destinations' => DestinationResource::collection($locations),
+            'total' => $count,
+            'message' => __('Nearest destination list.'),
+        ];
     }
 }
